@@ -49,7 +49,6 @@ fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
         .collect()
 }
 
-
 fn main() {
     println!("{}", solve1("input.txt"));
     println!("{}", solve2("input.txt"));

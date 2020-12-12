@@ -27,7 +27,6 @@ fn solve1(filename: &str) -> i32 {
 
 fn multiplier(n: usize) -> u64 {
     match n {
-        4 => 25, // 4! + 1
         3 => 7,  // 3! + 1
         2 => 4,  // all, a, b, none
         1 => 2,  // all, none

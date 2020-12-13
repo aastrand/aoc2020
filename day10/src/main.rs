@@ -27,9 +27,9 @@ fn solve1(filename: &str) -> i32 {
 
 fn multiplier(n: usize) -> u64 {
     match n {
-        3 => 7,  // 3! + 1
-        2 => 4,  // all, a, b, none
-        1 => 2,  // all, none
+        3 => 7, // 3! + 1
+        2 => 4, // all, a, b, none
+        1 => 2, // all, none
         _ => panic!("Unsupported n: {}", n),
     }
 }
@@ -40,18 +40,18 @@ fn solve2(filename: &str) -> u64 {
     nums.sort();
     nums.push(nums.last().unwrap() + 3);
 
-    let mut ones = vec![];
+    let mut ones = 0;
     let mut product = 1;
 
     for i in 0..nums.len() - 1 {
         match &nums[i + 1] - &nums[i] {
             3 => {
-                if ones.len() > 1 {
-                    product *= multiplier(ones.len() - 1);
+                if ones > 1 {
+                    product *= multiplier(ones - 1);
                 }
-                ones.clear();
+                ones = 0;
             }
-            1 => ones.push(1),
+            1 => ones += 1,
             n => panic!("Unexpected diff: {}", n),
         }
     }

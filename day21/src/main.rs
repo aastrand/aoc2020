@@ -6,35 +6,18 @@ use std::{
 
 use std::collections::{HashMap, HashSet};
 
-/*
-mxmxvkd kfcds sqjhc nhms (contains dairy, fish)
-trh fvjkl sbzzf mxmxvkd (contains dairy)
-sqjhc fvjkl (contains soy)
-sqjhc mxmxvkd sbzzf (contains fish)
-
-dairy1: mxmxvkd kfcds sqjhc nhms
-dairy2: trh fvjkl sbzzf mxmxvkd
-
-dairy1 intersect dairy2 = mxmxvkd => mxmxvkd
-
-fish1: mxmxvkd kfcds sqjhc nhms
-fish2: sqjhc mxmxvkd sbzzf
-
-fish1 intersect fish2 = mxmxvkd, sqjhc => sqjhc
-
-soy1: sqjhc fvjkl => fvjkl
-
-
-In the above example, none of the ingredients kfcds, nhms, sbzzf, or trh
-
-*/
-
-fn solve1(filename: &str) -> u64 {
+fn parse(
+    input: &Vec<String>,
+) -> (
+    HashMap<String, Vec<HashSet<String>>>,
+    HashSet<String>,
+    Vec<HashSet<String>>,
+) {
     let mut allergen_to_ingredients: HashMap<String, Vec<HashSet<String>>> = HashMap::new();
     let mut all_ingredients: HashSet<String> = HashSet::new();
     let mut ingredients_as_listed = vec![];
 
-    for line in lines_from_file(filename) {
+    for line in input {
         let splits: Vec<&str> = line.split(" (").collect();
         let ingredients = splits[0]
             .split(" ")
@@ -60,6 +43,16 @@ fn solve1(filename: &str) -> u64 {
         }
     }
 
+    (
+        allergen_to_ingredients,
+        all_ingredients,
+        ingredients_as_listed,
+    )
+}
+
+fn reduce(
+    allergen_to_ingredients: HashMap<String, Vec<HashSet<String>>>,
+) -> HashMap<String, HashSet<String>> {
     let mut reduced: HashMap<String, HashSet<String>> = HashMap::new();
     for allergen in allergen_to_ingredients.keys() {
         let sets = allergen_to_ingredients.get(allergen).unwrap();
@@ -108,7 +101,17 @@ fn solve1(filename: &str) -> u64 {
             }
         }
     }
-    println!("{:?}", reduced);
+
+    reduced
+}
+
+fn solve1(filename: &str) -> u64 {
+    let (allergen_to_ingredients, all_ingredients, ingredients_as_listed) =
+        parse(&lines_from_file(filename));
+
+    let reduced = reduce(allergen_to_ingredients);
+
+    //println!("{:?}", reduced);
     let ingredients_with_allergens = reduced
         .values()
         .map(|s| s.iter().next().unwrap())
@@ -127,6 +130,13 @@ fn solve1(filename: &str) -> u64 {
             }
         }
     }
+    sum
+}
+
+fn solve2(filename: &str) -> String {
+    let (allergen_to_ingredients, _, _) = parse(&lines_from_file(filename));
+
+    let reduced = reduce(allergen_to_ingredients);
 
     let mut allergens = reduced
         .keys()
@@ -134,15 +144,12 @@ fn solve1(filename: &str) -> u64 {
         .collect::<Vec<String>>();
     allergens.sort();
 
-    println!("{:?}", allergens
+    allergens
         .iter()
         .map(|a| reduced.get(a).unwrap().iter().next().unwrap())
         .map(|a| a.to_string())
         .collect::<Vec<String>>()
-        .join(","));
-    
-
-    sum
+        .join(",")
 }
 
 fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
@@ -155,6 +162,7 @@ fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
 
 fn main() {
     println!("{}", solve1("input.txt"));
+    println!("{}", solve2("input.txt"));
 }
 
 #[cfg(test)]
@@ -164,6 +172,6 @@ mod tests {
     #[test]
     fn test() {
         assert_eq!(solve1("example.txt"), 5);
-        //assert_eq!(solve2("example.txt"), "mxmxvkd,sqjhc,fvjkl");
+        assert_eq!(solve2("example.txt"), "mxmxvkd,sqjhc,fvjkl");
     }
 }

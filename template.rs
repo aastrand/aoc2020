@@ -4,11 +4,11 @@ use std::{
     path::Path,
 };
 
-fn solve1(filename: &str) -> i64 {
+fn solve1(filename: &str) -> u64 {
     0
 }
 
-fn solve2(filename: &str) -> i64 {
+fn solve2(filename: &str) -> u64 {
     0
 }
 
@@ -32,6 +32,6 @@ mod tests {
     #[test]
     fn test() {
         assert_eq!(solve1("example.txt"), 25);
-        assert_eq!(solve2("example.txt"), 286);
+        //assert_eq!(solve2("example.txt"), 286);
     }
 }

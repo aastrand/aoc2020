@@ -9,7 +9,7 @@ use std::collections::HashMap;
 #[macro_use]
 extern crate lazy_static;
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 enum Direction {
     East,
     West,

@@ -40,8 +40,8 @@ fn solve2(filename: &str) -> u64 {
 }
 
 fn main() {
-    println!("{}", solve1("input.txt"));
-    println!("{}", solve2("input.txt"));
+    println!("{}", solve1("../input/2020/day6.txt"));
+    println!("{}", solve2("../input/2020/day6.txt"));
 }
 
 #[cfg(test)]

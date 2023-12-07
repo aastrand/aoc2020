@@ -69,8 +69,8 @@ fn ints_from_file(filename: impl AsRef<Path>) -> Vec<i64> {
 }
 
 fn main() {
-    println!("{}", solve1("input.txt"));
-    println!("{}", solve2("input.txt"));
+    println!("{}", solve1("../input/2020/day10.txt"));
+    println!("{}", solve2("../input/2020/day10.txt"));
 }
 
 #[cfg(test)]

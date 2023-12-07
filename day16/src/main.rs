@@ -196,8 +196,8 @@ fn solve2(filename: &str) -> u64 {
 }
 
 fn main() {
-    println!("{}", solve1("input.txt"));
-    println!("{}", solve2("input.txt"));
+    println!("{}", solve1("../input/2020/day16.txt"));
+    println!("{}", solve2("../input/2020/day16.txt"));
 }
 
 #[cfg(test)]
